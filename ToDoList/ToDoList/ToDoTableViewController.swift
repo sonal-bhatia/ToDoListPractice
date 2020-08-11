@@ -13,19 +13,15 @@ class ToDoTableViewController: UITableViewController {
     var listOfToDo : [ToDoClass] = []
     
     func createToDo() -> [ToDoClass] {
-        let satPrepToDo = ToDoClass()
-        satPrepToDo.description = "Take SAT Practice Test"
-        satPrepToDo.important = true
+        let swiftToDo = ToDoClass()
+        swiftToDo.description = "Learn Swift"
+        swiftToDo.important = true
         
-        let satPracticeToDo = ToDoClass()
-        satPracticeToDo.description = "Use SAT Math Practice App"
+        let dogToDo = ToDoClass()
+        dogToDo.description = "Walk the dog"
         //important is set to false by default
         
-        let walkSimbaToDo = ToDoClass()
-        walkSimbaToDo.description = "Take Simba on a walk"
-        walkSimbaToDo.important = true
-        
-        return [satPrepToDo, satPracticeToDo, walkSimbaToDo]
+        return [swiftToDo, dogToDo]
     }
     
     override func viewDidLoad() {
@@ -38,7 +34,7 @@ class ToDoTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return listOfToDo.count
     }
 
     
@@ -57,12 +53,28 @@ class ToDoTableViewController: UITableViewController {
 
         return cell
     }
-    /*
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // this gives a single ToDo
+        let eachToDo = listOfToDo [indexPath.row]
+        performSegue(withIdentifier: "moveToCompletedToDoVC", sender: eachToDo)
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let nextAddToDoVC = segue.destination as? AddToDoViewController {
+            nextAddToDoVC.previousToDoTVC = self
+        }
+        if let nextCompletedToDoVC = segue.destination as? CompletedToDoViewController {
+            if let choosenToDo = sender as? ToDoClass {
+                nextCompletedToDoVC.selectedToDo = choosenToDo
+                nextCompletedToDoVC.previousToDoTVC = self
+            }
+        }
+
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }
